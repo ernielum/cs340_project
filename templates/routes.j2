@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Routes</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script language="JavaScript">
+        function showform(dowhat) {
+            /*
+            * four sectionS: browse, insert, update, delete
+            * this function sets one visible the others not
+            */
+            if (dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'update') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'delete') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else { //by default display browse
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'none';
+            }
+        }
+        function newRoute() { showform('insert'); }
+        function deleteRoute(id) { showform('delete'); }
+        function browseRoutes() { showform('browse'); }
+    </script>
+</head>
+
+<body onload="browseRoutes()">
+    <header>
+        <h1>Pharmacy Database (Ph.D)</h1>
+    </header>
+    <nav>
+        <a href="index.j2">Home</a>
+        <a href="companies.j2">Companies</a>
+        <a href="drugs.j2">Drugs</a>
+        <a href="patients.j2">Patients</a>
+        <a href="prescriptions.j2">Prescriptions</a>
+        <a href="frequencies.j2">Frequencies</a>
+        <a href="routes.j2">Routes</a>
+        <a href="companies_drugs.j2">Companies_Drugs</a>
+    </nav>
+    <main>
+        <h2>Routes</h2>
+        <section id="browse">
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>id</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Oral</td>
+                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Intravenous</td>
+                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Intramuscular</td>
+                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Ocular</td>
+                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Otic</td>
+                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>Nasal</td>
+                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>Topical</td>
+                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
+                  </tr>
+            </table>
+            <button type ="button"><a href="#" onClick="newRoute()">Add New Route</a></button>
+            <p>&nbsp;</p>
+        </section> <!-- browse -->
+
+        <section id="insert">
+            <form method="POST" id="addRoute">
+                <legend><strong>Add Route</strong></legend>
+                <fieldset class="fields">
+                    <label> Description </label> <input type="text" name="name">
+                </fieldset>
+                <input class="btn" type="submit" id="addRoute" value="Add">
+                <input class="btn" type="button" value="Cancel" onClick="browseRoutes()">
+            </form>
+        </section><!-- insert -->
+        <p>&nbsp;</p>
+
+        <section id="delete" style="display: block">
+            <form method="POST" id="deleteRoute">
+                <legend><strong>Delete Route</strong></legend>
+                <fieldset class="fields">
+                    <p>Are you sure you wish to delete the following?</p>
+                    <input type="hidden" name="routeID" id="deleterouteID" value="1">
+                    <label><strong>ID:</strong></label> 1
+                    <label> <strong>Description</strong> </label> Oral
+
+                </fieldset>
+                <input class="btn" type="submit" id="DeleteRoute" value="Delete">
+                <input class="btn" type="button" value="Cancel" onClick="browseRoutes()">
+            </form>
+        </section><!-- delete -->
+    </main>
+
+</body>
+
+</html>
