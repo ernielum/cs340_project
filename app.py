@@ -57,7 +57,7 @@ def companies_drugs():
 # Listener
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5222)) 
+    port = int(os.environ.get('PORT', 49171)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     
