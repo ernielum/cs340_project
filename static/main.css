@@ -1,0 +1,129 @@
+/*  ===== MOBILE styles (reside at the top and are inherited by all devices) ===== */
+/*  ===== See tablet, desktop, and print @media queries at the bottom. */
+
+/*   ----- Imports  -----  */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@500&family=Raleway:wght@500&family=Source+Sans+Pro&display=swap');
+@import url('https://www.w3schools.com/w3css/4/w3.css');
+
+/*   ----- Variables  -----  */
+:root {
+  --dark_blue:#1f3b5cce;
+  --light_blue: #d6d6d6;
+  --not_white: #dfe9f0;
+}
+
+/*  ----- Viewport ----- elements inherited by all remaining elements ----- */
+body {       /* Can alternatively define in html {} or :root {} */
+  font-family: "Source Sans Pro", sans-serif;
+  margin:10px;
+  padding:10px;
+  background: var(--dark_blue);
+  max-width: fit-content;
+}
+
+/*  ----- Page layout blocks -----  */
+header{
+  font-family: "Arimo", sans-serif;
+  text-transform: capitalize;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: white;
+  padding: auto;
+}
+
+main {
+  font-family: "Source Sans Pro", sans-serif;
+  color: white;
+  padding: auto;
+  margin: auto;
+  position: relative;
+  top: 100px;
+  left: 20px;
+}
+
+h1, h2, h3, article {
+    font-family: "Source Sans Pro", sans-serif;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+}
+
+/*  ----- Navigation ----- Override text links for navigation only.  */
+nav {
+  color: var(--dark_blue);
+  position: absolute;
+  top: 85px;
+  right: 20px;
+  padding: auto;
+}
+
+nav a {
+  color: var(--light_blue);
+  margin: 5px;
+  padding: 10px;
+  position: center;
+}
+nav a:hover {
+  background-color: var(--light_blue), var(--alpha);
+  color: var(--light_with_alpha);
+}
+
+
+/*  -----  Typography  ----- */
+p {
+  background-color: var(--lightest_with_alpha);
+  font-size: small;
+  font-weight: lighter;
+  padding: 10px;
+  margin: 10px;
+}
+
+ol, ul, dl {
+  background-color: var(--lightest_with_alpha);
+  font-size: small;
+  font-weight: lighter;
+  color: var(--dark_purple);
+  padding: 10px;
+  margin: 10px;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  font-weight: lighter;
+}
+
+/* Tables */
+table, th, td{
+    border: 1px solid white;
+    text-align: left;
+}
+
+a {
+    color: var(--light_blue);
+    margin: 5px;
+    padding: 10px;
+    position: center;
+}
+a:hover {
+    color: rgba(255, 255, 255, 0.875);
+}
+
+/* Columns */
+.row{
+    display: flex;
+}
+
+.column{
+    flex: 50%;
+}
+
+.shade{
+    background: #bfd5f07b ;
+    color: black;
+    margin: 10px;
+    padding: 10px;
+}

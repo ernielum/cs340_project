@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Companies_Drugs</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
+    <script language="JavaScript">
+        function showform(dowhat) {
+            /*
+            * four sectionS: browse, insert, update, delete
+            * this function sets one visible the others not
+            */
+            if (dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'update') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'delete') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else { //by default display browse
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'none';
+            }
+        }
+        function newCompanies_Drugs() { showform('insert'); }
+        function deleteCompanies_Drugs(id) { showform('delete'); }
+        function browseCompanies_Drugs() { showform('browse'); }
+    </script>
+</head>
+
+<body onload="browseCompanies_Drugs()">
+    <header>
+        <h1>Pharmacy Database (Ph.D)</h1>
+    </header>
+    <nav>
+        <a href="index.j2">Home</a>
+        <a href="companies.j2">Companies</a>
+        <a href="drugs.j2">Drugs</a>
+        <a href="patients.j2">Patients</a>
+        <a href="prescriptions.j2">Prescriptions</a>
+        <a href="frequencies.j2">Frequencies</a>
+        <a href="routes.j2">Routes</a>
+        <a href="companies_drugs.j2">Companies_Drugs</a>
+    </nav>
+    <main>
+        <h2>Companies_Drugs</h2>
+        <section id="browse">
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>Company</th>
+                    <th>Drug</th>
+                </tr>
+                <tr>
+                    <td>Pain Pain Go Away</td>
+                    <td>acetaminophen</td>
+                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>Pain Pain Go Away</td>
+                    <td>diclofenac</td>
+                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>Easy Sneezy</td>
+                    <td>fluticasone</td>
+                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>Legendary Bio</td>
+                    <td>latanoprost</td>
+                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>Meds 4 You</td>
+                    <td>enoxaparin</td>
+                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
+                </tr>
+            </table>
+            <button type="button"><a href="#" onClick="newCompanies_Drugs()">Add New Companies_Drugs</a></button>
+            <p>&nbsp;</p>
+        </section> <!-- browse -->
+
+        <section id="insert">
+            <form method="POST" id="addCompanies_Drugs">
+                <legend><strong>Add Companies_Drugs</strong></legend>
+                <fieldset class="fields">
+                    <label> Company </label>
+                    <select name="companies_drugs_company_name" id="companies_drugs_company_name">
+                        <option>Pain Pain Go Away</option>
+                        <option>Easy Sneezy</option>
+                        <option>Legendary Bio</option>
+                        <option>Meds 4 You</option>
+                        <option>Milead</option>
+                    </select>
+                    <label> Drug </label>
+                    <select name="companies_drugs_drug_name" id="companies_drugs_drug_name">
+                        <option>acetaminophen</option>
+                        <option>enoxaparin</option>
+                        <option>fluticasone</option>
+                        <option>latanoprost</option>
+                        <option>diclofenac</option>
+                    </select>
+                </fieldset>
+                <input class="btn" type="submit" id="addCompanies_Drugs" value="Add">
+                <input class="btn" type="button" value="Cancel" onClick="browseCompanies_Drugs()">
+            </form>
+        </section><!-- insert -->
+        <p>&nbsp;</p>
+
+        <section id="delete" style="display: block">
+            <form method="POST" id="deleteCompanies_Drugs">
+                <legend><strong>Delete Companies_Drugs</strong></legend>
+                <fieldset class="fields">
+                    <p>Are you sure you wish to delete the following?</p>
+                    <input type="hidden" name="companies_drugsID" id="deletecompanies_drugsID" value="1">
+                    <label><strong>ID:</strong></label> 1
+                    <label><strong>Company:</strong></label> Pain Pain Go Away
+                    <label><strong>Drug:</strong></label> acetaminophen
+                </fieldset>
+                <input class="btn" type="submit" id="DeleteCompanies_Drugs" value="Delete">
+                <input class="btn" type="button" value="Cancel" onClick="browseCompanies_Drugs()">
+            </form>
+        </section><!-- delete -->
+    </main>
+
+</body>
+
+</html>
