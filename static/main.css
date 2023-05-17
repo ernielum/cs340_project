@@ -103,13 +103,20 @@ table, th, td{
 }
 
 a {
-    color: var(--light_blue);
+    color: var(--not_white);
     margin: 5px;
     padding: 10px;
     position: center;
 }
 a:hover {
     color: rgba(255, 255, 255, 0.875);
+}
+
+.btn a, button a{
+  color: var(--dark_blue);
+  margin: 5px;
+  padding: 10px;
+  position: center;
 }
 
 /* Columns */
