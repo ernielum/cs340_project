@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Pharmacy Database</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
     <script src='main.js'></script>
 </head>
 <body>
@@ -26,49 +26,56 @@
 
     <main>
         <section>
-            <h2>Table of Contents</h2>
-            <article>
-                <h3><a href="companies.html">Companies</a></h3>
-                    <p>
-                        Company information can be found on this page.
-                    </p>
-            </article>
-            <article>
-                <h3><a href="drugs.html">Drugs</a></h3>
-                    <p>
-                        Drug information can be found on this page.
-                    </p>
-            </article>
-            <article>
-                <h3><a href="patients.html">Patients</a></h3>
-                    <p>
-                        Patient information can be found on this page.
-                    </p>
-            </article>
-            <article>
-                <h3><a href="prescriptions.html">Prescriptions</a></h3>
-                    <p>
-                        Prescription information can be found on this page.
-                    </p>
-            </article>
-            <article>
-                <h3><a href="frequencies.html">Frequencies</a></h3>
-                    <p>
-                        Frequency information can be found on this page.
-                    </p>
-            </article>
-            <article>
-                <h3><a href="routes.html">Routes</a></h3>
-                    <p>
-                        Route information can be found on this page.
-                    </p>
-            </article>
-            <article>
-                <h3><a href="companies_drugs.html">Companies_Drugs</a></h3>
-                    <p>
-                        Information about drugs and their manufacturing companies can be found on this page.
-                    </p>
-            </article>
+            <h2>Welcome!</h2>
+            <p>The Pharmacy Database partners with established pharmaceutical companies to ensure
+            that our patients have affordable access to life-changing treatments.</p>
+
+            <div class="w3-container">
+                <div class="w3-content row">
+                    <div id="data" class="w3-container w3-card column">
+                        <h4>Our Data</h4>
+                        <p>Here are all of the entities you can view and modify as an administrative user.</p>
+                        <div class="shade">
+                        <h5><a href="companies.j2">Companies</a></h5>
+                        <p>
+                            Company information can be found on this page.
+                        </p>
+                        <h5><a href="drugs.j2">Drugs</a></h5>
+                        <p>
+                            Drug information can be found on this page.
+                        </p>
+                        <h5><a href="patients.j2">Patients</a></h5>
+                        <p>
+                            Patient information can be found on this page.
+                        </p>
+                        <h5><a href="companies_drugs.html">Companies_Drugs</a></h5>
+                        <p>
+                            Information about drugs and their manufacturing companies can be found on this page.
+                        </p>
+                        <h5><a href="prescriptions.j2">Prescriptions</a></h5>
+                        <p>
+                            Prescription information can be found on this page.
+                        </p>
+                        </div>
+                    </div>
+
+                    <div id="references" class="w3-container w3-card column">
+                        <h4>Standardized References</h4>
+                        <p>We follow the FDA's standard when referring to prescription information on
+                        the <b>frequency</b> and <b>route</b> of drug.</p>
+                        <div class="shade">
+                        <h5><a href="frequencies.j2">Frequencies</a></h5>
+                        <p>
+                            Frequency information can be found on this page.
+                        </p>
+                        <h5><a href="routes.j2">Routes</a></h5>
+                        <p>
+                            Route information can be found on this page.
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </section>
     </main>
 </body>
