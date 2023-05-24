@@ -2,8 +2,10 @@ from flask import Flask, render_template, json, redirect
 from flask_mysqldb import MySQL
 from flask import request
 import os
+import database.db_connector as db
 
 app = Flask(__name__)
+db_connection = db.connect_to_database()
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
 app.config['MYSQL_USER'] = 'cs340_lumer'
@@ -53,7 +55,14 @@ def frequencies():
 def companies_drugs():
     return render_template("companies_drugs.j2")
 
+@app.route('/test_companies')
+def test_companies():
+    query = "SELECT * FROM Companies;"
 
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = json.dumps(cursor.fetchall())
+
+    return results
 # Listener
 
 if __name__ == "__main__":

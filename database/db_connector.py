@@ -1,17 +1,7 @@
 import MySQLdb
 import os
-from dotenv import load_dotenv, find_dotenv
 
-# Load environment variables from .env file in the root of project.
-load_dotenv(find_dotenv())
-
-# Set variables in our application with environment variables.
-host = os.environ.get("340DBHOST")
-user = os.environ.get("340DBUSER")
-passwd = os.environ.get("340DBPW")
-db = os.environ.get("340DB")
-
-def connect_to_database(host = host, user = user, passwd = passwd, db = db):
+def connect_to_database(host='classmysql.engr.oregonstate.edu', user='cs340_leeje7', passwd='8989', db='cs340_leeje7'):
     db_connection = MySQLdb.connect(host, user, passwd, db)
     return db_connection
 
