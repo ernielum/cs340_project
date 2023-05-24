@@ -1,18 +1,28 @@
 from flask import Flask, render_template, json, redirect
 from flask_mysqldb import MySQL
 from flask import request
+from dotenv import load_dotenv, find_dotenv
+
 import os
 import database.db_connector as db
+
+# Load the .env file into the environment variables
+load_dotenv()
+
+# Set the variables in our app to the already set environment variables
+host = os.environ.get("340DBHOST")
+user = os.environ.get("340DBUSER")
+passwd = os.environ.get("340DBPW")
+database = os.environ.get("340DB")
 
 app = Flask(__name__)
 db_connection = db.connect_to_database()
 
-app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_leeje7'
-app.config['MYSQL_PASSWORD'] = '8989' #last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_leeje7'
+app.config['MYSQL_HOST'] = host
+app.config['MYSQL_USER'] = user
+app.config['MYSQL_PASSWORD'] = passwd
+app.config['MYSQL_DB'] = database
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
-
 
 mysql = MySQL(app)
 
