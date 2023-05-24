@@ -8,9 +8,9 @@ app = Flask(__name__)
 db_connection = db.connect_to_database()
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_lumer'
-app.config['MYSQL_PASSWORD'] = 'vm7WiUi6Vy9T' #last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_lumer'
+app.config['MYSQL_USER'] = 'cs340_leeje7'
+app.config['MYSQL_PASSWORD'] = '8989' #last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_leeje7'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 
