@@ -46,8 +46,8 @@
         }
         function newCompany() { showform('insert'); }
         function updateCompany(id) { showform('update'); }
-        function deleteCompany(id) { showform('delete'); }
         function browseCompanies() { showform('browse'); }
+        function deleteCompany(id) { showform('delete'); }
     </script>
 </head>
 
@@ -70,47 +70,24 @@
         <section id="browse">
             <table border="1" cellpadding="5">
                 <tr>
-                    <th>ID</th>
-                    <th>Company Name</th>
-                    <th>Total Drugs</th>
+                    {% for key in companies[0].keys() %}
+
+                    <th>{{ key }}</th>
+
+                    {% endfor %}
                 </tr>
+
+                {% for company in companies %}
                 <tr>
-                    <td>1</td>
-                    <td>Pain Pain Go Away</td>
-                    <td>2</td>
-                    <td><a href="#" onClick="updateCompany('this.companyID')">Edit</a></td>
-                    <td><a href="#" onclick="deleteCompany('this.companyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td >Easy Sneezy</td>
-                    <td>1</td>
-                    <td><a href="#" onClick="updateCompany('this.companyID')">Edit</a></td>
-                    <td><a href="#" onclick="deleteCompany('this.companyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Legendary Bio</td>
-                    <td>1</td>
-                    <td><a href="#" onClick="updateCompany('this.companyID')">Edit</a></td>
-                    <td><a href="#" onclick="deleteCompany('this.companyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Meds 4 You</td>
-                    <td>1</td>
-                    <td><a href="#" onClick="updateCompany('this.companyID')">Edit</a></td>
-                    <td><a href="#" onclick="deleteCompany('this.companyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>Milead</td>
-                    <td>0</td>
-                    <td><a href="#" onClick="updateCompany('this.companyID')">Edit</a></td>
-                    <td><a href="#" onclick="deleteCompany('this.companyID')">Delete</a></td>
-                  </tr>
+                    {% for key in company.keys() %}
+                    <td>{{company[key]}}</td>
+                    {% endfor %}
+                    <td><a href="/companies/edit/{{company.company_id}}">Edit</a></td>
+                    <td><a href="/companies/delete/{{company.company_id}}" onClick="return confirm('Are you sure you want to delete {{company.name}}?')">Delete</a></td>
+                </tr>
+                {% endfor %}
             </table>
-            <button type ="button"><a href="#" onClick="newCompany()">Add New Company</a></button>
+            <button type="button"><a href="#" onClick="newCompany()">Add New Company</a></button>
             <p>&nbsp;</p>
         </section> <!-- browse -->
 
@@ -118,16 +95,16 @@
             <form method="POST" id="addCompany">
                 <legend><strong>Add Company</strong></legend>
                 <fieldset class="fields">
-                    <label> name </label> <input type="text" name="name">
+                    <label> Company Name </label> <input type="text" name="name" id="name" required>
                 </fieldset>
-                <input class="btn" type="submit" id="addCompany" value="Add">
+                <input class="btn" type="submit" name="addCompany" id="AddCompany" value="Add">
                 <input class="btn" type="button" value="Cancel" onClick="browseCompanies()">
             </form>
         </section><!-- insert -->
         <p>&nbsp;</p>
 
-        <section id="update">
-            <form method="POST" id="UpdateCompany">
+        {# <section id="update">
+            <form method="POST" id="updateCompany">
                 <legend><strong>Update Company</strong></legend>
                 <fieldset class="fields">
                     <input type="hidden" name="companyID" id="updatecompanyID" value="1">
@@ -137,11 +114,11 @@
                 <input class="btn" type="submit" id="UpdateSaveCompany" value="Save">
                 <input class="btn" type="button" value="Cancel" onClick="browseCompanies()">
             </form>
-        </section><!-- update -->
+        </section><!-- update --> #}
 
         <p>&nbsp;</p>
 
-        <section id="delete" style="display: block">
+        {# <section id="delete" style="display: block">
             <form method="POST" id="deleteCompany">
                 <legend><strong>Delete Company</strong></legend>
                 <fieldset class="fields">
@@ -154,7 +131,7 @@
                 <input class="btn" type="submit" id="DeleteCompany" value="Delete">
                 <input class="btn" type="button" value="Cancel" onClick="browseCompanies()">
             </form>
-        </section><!-- delete -->
+        </section><!-- delete --> #}
     </main>
 
 </body>

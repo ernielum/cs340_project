@@ -59,42 +59,23 @@
         <section id="browse">
             <table border="1" cellpadding="5">
                 <tr>
-                    <th>ID</th>
-                    <th>Drug Name</th>
-                    <th>Year Approved</th>
+                    {% for key in drugs[0].keys() %}
+
+                    <th>{{ key }}</th>
+
+                    {% endfor %}
                 </tr>
+
+                {% for drug in drugs %}
                 <tr>
-                    <td>1</td>
-                    <td>acetaminophen</td>
-                    <td>1950</td>
-                    <td><a href="#" onclick="deleteDrug('this.drugID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>enoxaparin</td>
-                    <td>1998</td>
-                    <td><a href="#" onclick="deleteDrug('this.drugID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>fluticasone</td>
-                    <td>1998</td>
-                    <td><a href="#" onclick="deleteDrug('this.drugID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>latanoprost</td>
-                    <td>1996</td>
-                    <td><a href="#" onclick="deleteDrug('this.drugID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>diclofenac</td>
-                    <td>2007</td>
-                    <td><a href="#" onclick="deleteDrug('this.drugID')">Delete</a></td>
-                  </tr>
+                    {% for key in drug.keys() %}
+                    <td>{{drug[key]}}</td>
+                    {% endfor %}
+                    <td><a href="/drugs/delete/{{drug.drug_id}}" onclick="return confirm('Are you sure you want to delete {{drug.name}}?')">Delete</a></td>
+                </tr>
+                {% endfor %}
             </table>
-            <button type ="button"><a href="#" onClick="newDrug()">Add New Drug</a></button>
+            <button type="button"><a href="#" onClick="newDrug()">Add New Drug</a></button>
             <p>&nbsp;</p>
         </section> <!-- browse -->
 
@@ -102,17 +83,17 @@
             <form method="POST" id="addDrug">
                 <legend><strong>Add Drug</strong></legend>
                 <fieldset class="fields">
-                    <label> name </label> <input type="text" name="name">
-                    <label> year_approved </label> <input type="text" name="year_approved">
+                    <label> Name </label> <input type="text" id="name" name="name">
+                    <label> Year Approved </label> <input type="text" id="year_approved" name="year_approved">
                 </fieldset>
-                <input class="btn" type="submit" id="addDrug" value="Add">
+                <input class="btn" type="submit" name="addDrug" id="addDrug" value="Add">
                 <input class="btn" type="button" value="Cancel" onClick="browseDrugs()">
             </form>
         </section><!-- insert -->
 
         <p>&nbsp;</p>
 
-        <section id="delete" style="display: block">
+        {# <section id="delete" style="display: block">
             <form method="POST" id="deleteDrug">
                 <legend><strong>Delete Drug</strong></legend>
                 <fieldset class="fields">
@@ -125,7 +106,7 @@
                 <input class="btn" type="submit" id="DeleteDrug" value="Delete">
                 <input class="btn" type="button" value="Cancel" onClick="browseDrugs()">
             </form>
-        </section><!-- delete -->
+        </section><!-- delete --> #}
     </main>
 
 </body>

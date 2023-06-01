@@ -115,21 +115,74 @@ def drugs():
 
 @app.route('/drugs/delete/<int:id>')
 def delete_drug(id):
-    # mySQL query to delete the company with passed id
+    # mySQL query to delete the drug with passed id
     query = "DELETE FROM Drugs WHERE drug_id = '%s';"
     cur = mysql.connection.cursor()
     cur.execute(query, (id,))
     mysql.connection.commit()
     return redirect("/drugs.j2")
 
-
 @app.route('/patients.j2')
 def patients():
     return render_template("patients.j2")
 
-@app.route('/prescriptions.j2')
+@app.route('/prescriptions.j2', methods=['POST', 'GET'])
 def prescriptions():
-    return render_template("prescriptions.j2")
+    if request.method == 'POST':
+        # add prescription
+        if request.form.get("addPrescription"):
+        # retrieve user form input
+            drug_id = request.form["drug_id"]
+            patient_id = request.form['patient_id']
+            start_date = request.form["start_date"]
+            end_date = request.form["end_date"]
+            frequency = request.form["prescription_frequency"]
+            route = request.form["prescription_route"]
+            description = request.form["prescription_description"]
+            query = "INSERT INTO Prescriptions(drug_id, patient_id, start_date, end_date, frequency_id, route_id, description) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (drug_id, patient_id, start_date, end_date, frequency, route, description))
+            mysql.connection.commit()
+        return redirect("/prescriptions.j2")
+    
+    if request.method == 'GET':
+        # mySQL query to show all prescriptions in Prescriptions
+        query = "SELECT Prescriptions.prescription_id, Patients.lname, Patients.fname, Drugs.name AS Drug, Prescriptions.start_date, Prescriptions.end_date, Frequencies.description AS Frequency, Routes.description AS Route, Prescriptions.description  FROM Prescriptions INNER JOIN Patients ON Prescriptions.patient_id = Patients.patient_id INNER JOIN Drugs ON Prescriptions.drug_id = Drugs.drug_id INNER JOIN Frequencies ON Prescriptions.frequency_id = Frequencies.frequency_id INNER JOIN Routes ON Prescriptions.route_id = Routes.route_id;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        prescriptions_data = cur.fetchall()
+
+        # mySQL query to grab drug id/name data from dropdown
+
+        query = "SELECT drug_id, name FROM Drugs ORDER BY name ASC;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        drugs_data = cur.fetchall()
+
+        # mySQL query to grab frequency id/description data from dropdown
+
+        query = "SELECT * FROM Frequencies;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        frequencies_data = cur.fetchall()
+
+        # mySQL query to grab route id/description data from dropdown
+
+        query = "SELECT * FROM Routes;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        routes_data = cur.fetchall()
+
+        return render_template("prescriptions.j2", prescriptions=prescriptions_data, drugs=drugs_data, frequencies=frequencies_data, routes=routes_data)
+
+@app.route('/prescriptions/delete/<int:id>')
+def delete_prescription(id):
+    # mySQL query to delete the prescription with passed id
+    query = "DELETE FROM Prescriptions WHERE prescription_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (id,))
+    mysql.connection.commit()
+    return redirect("/prescriptions.j2")
 
 @app.route('/routes.j2')
 def routes():

@@ -59,76 +59,21 @@
         <section id="browse">
             <table border="1" cellpadding="5">
                 <tr>
-                    <th>id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Drug</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Frequency</th>
-                    <th>Route</th>
-                    <th>Description</th>
+                    {% for key in prescriptions[0].keys() %}
+
+                    <th>{{ key }}</th>
+
+                    {% endfor %}
                 </tr>
+
+                {% for prescription in prescriptions %}
                 <tr>
-                    <td>1</td>
-                    <td>Peter</td>
-                    <td>Parker</td>
-                    <td>enoxaparin</td>
-                    <td>2022-01-25</td>
-                    <td>2022-02-21</td>
-                    <td>Everyday</td>
-                    <td>Intramuscular</td>
-                    <td>To prevent blood clots</td>
-                    <td><a href="#" onclick="deletePrescription('this.prescriptionID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Peter</td>
-                    <td>Parker</td>
-                    <td>diclofenac</td>
-                    <td>2022-02-07</td>
-                    <td>2022-03-02</td>
-                    <td>Every other day</td>
-                    <td>Topical</td>
-                    <td>For arthritis</td>
-                    <td><a href="#" onclick="deletePrescription('this.prescriptionID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Tony</td>
-                    <td>Stark</td>
-                    <td>acetaminophen</td>
-                    <td>2022-02-11</td>
-                    <td>2022-05-25</td>
-                    <td>As needed</td>
-                    <td>Oral</td>
-                    <td>For headaches when Spiderman gets in trouble</td>
-                    <td><a href="#" onclick="deletePrescription('this.prescriptionID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Barry</td>
-                    <td>Allen</td>
-                    <td>enoxaparin</td>
-                    <td>2022-09-20</td>
-                    <td>2022-10-03</td>
-                    <td>Every other day</td>
-                    <td>Intramuscular</td>
-                    <td>To prevent blood clots</td>
-                    <td><a href="#" onclick="deletePrescription('this.prescriptionID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>Lucy</td>
-                    <td>Luck</td>
-                    <td>fluticasone</td>
-                    <td>2023-04-06</td>
-                    <td>2022-05-03</td>
-                    <td>As needed</td>
-                    <td>Nasal</td>
-                    <td>For allergies</td>
-                    <td><a href="#" onclick="deletePrescription('this.prescriptionID')">Delete</a></td>
-                  </tr>
+                    {% for key in prescription.keys() %}
+                    <td>{{prescription[key]}}</td>
+                    {% endfor %}
+                    <td><a href="/prescriptions/delete/{{prescription.prescription_id}}" onclick="return confirm('Are you sure you want to delete prescription ID: {{prescription.prescription_id}}?')">Delete</a></td>
+                </tr>
+                {% endfor %}
             </table>
             <button type ="button"><a href="#" onClick="newPrescription()">Add New Prescription</a></button>
             <p>&nbsp;</p>
@@ -138,36 +83,36 @@
             <form method="POST" id="addPrescription">
                 <legend><strong>Add Prescription</strong></legend>
                 <fieldset class="fields">
+                    <label> Drug </label>
+                        <select name="drug_id" id="drug_id">
+                            {% for drug in drugs %}
+                            <option value="{{ drug['drug_id'] }}">{{ drug['name'] }}</option>
+                            {% endfor %}
+                        </select>
                     <label> Patient ID </label> <input type="number" name="patient_id">
                     <label> Start Date </label> <input type="date" name="start_date">
                     <label> End Date </label> <input type="date" name="end_date">
                     <label> Frequency </label> 
                         <select name="prescription_frequency" id="prescription_frequency">
-                            <option>Everyday</option>
-                            <option>Every other day</option>
-                            <option>Every 8 hours</option>
-                            <option>Every 12 hours</option>
-                            <option>As needed</option>
+                            {% for frequency in frequencies %}
+                            <option value="{{ frequency['frequency_id'] }}">{{ frequency['description'] }}</option>
+                            {% endfor %}
                         </select>
                     <label> Route </label>
                         <select name="prescription_route" id="prescription_frequency">
-                            <option>Oral</option>
-                            <option>Intravenous</option>
-                            <option>Intramuscular</option>
-                            <option>Ocular</option>
-                            <option>Otic</option>
-                            <option>Nasal</option>
-                            <option>Topical</option>
+                            {% for route in routes %}
+                            <option value="{{ route['route_id'] }}">{{ route['description'] }}</option>
+                            {% endfor %}
                         </select>
                     <label> Description </label> <input type="text" name="prescription_description">
                 </fieldset>
-                <input class="btn" type="submit" id="addPrescription" value="Add">
+                <input class="btn" type="submit" id="addPrescription" name="addPrescription" value="Add">
                 <input class="btn" type="button" value="Cancel" onClick="browsePrescriptions()">
             </form>
         </section><!-- insert -->
         <p>&nbsp;</p>
 
-        <section id="delete" style="display: block">
+        {# <section id="delete" style="display: block">
             <form method="POST" id="deletePrescription">
                 <legend><strong>Delete Prescription</strong></legend>
                 <fieldset class="fields">
@@ -178,7 +123,7 @@
                 <input class="btn" type="submit" id="DeletePrescription" value="Delete">
                 <input class="btn" type="button" value="Cancel" onClick="browsePrescriptions()">
             </form>
-        </section><!-- delete -->
+        </section><!-- delete --> #}
     </main>
 
 </body>
