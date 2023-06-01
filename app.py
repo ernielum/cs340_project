@@ -122,9 +122,63 @@ def delete_drug(id):
     mysql.connection.commit()
     return redirect("/drugs.j2")
 
-@app.route('/patients.j2')
+@app.route('/patients.j2', methods=['POST', 'GET'])
 def patients():
-    return render_template("patients.j2")
+    if request.method == 'POST':
+        # add patient
+        if request.form.get("addPatient"):
+        # retrieve user form input
+            fname = request.form['fname']
+            lname = request.form['lname']
+            email = request.form['email']
+            phone = request.form['phone']
+            birthday = request.form['birthday']
+            query = "INSERT INTO Patients(fname, lname, email, phone, birthday) VALUES (%s, %s, %s, %s, %s);"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (fname, lname, email, phone, birthday,))
+            mysql.connection.commit()
+        return redirect("/patients.j2")
+    
+    if request.method == 'GET':
+        # mySQL query to show all patients in Patients
+        query = "SELECT * FROM Patients;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        patients_data = cur.fetchall()
+        return render_template("patients.j2", patients=patients_data)
+    
+@app.route('/patients/delete/<int:id>')
+def delete_patient(id):
+    # mySQL query to delete the patient with the passed id.
+    query = "DELETE FROM Patients WHERE patient_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (id,))
+    mysql.connection.commit()
+    return redirect("/patients.j2")
+
+@app.route('/patients/edit/<int:id>', methods=['POST', 'GET'])
+def edit_patient(id):
+    if request.method == 'GET':
+        query = "SELECT * FROM Patients WHERE patient_id = %s;"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (id,))
+        data = cur.fetchall()
+        return render_template("edit_patients.j2", data=data)
+    
+    if request.method == 'POST':
+        if request.form.get("updatePatient"):
+            # retrieve user form input
+            fname = request.form['fname']
+            lname = request.form['lname']
+            email = request.form['email']
+            phone = request.form['phone']
+            birthday = request.form['birthday']
+            query = "UPDATE Patients SET fname = %s, lname = %s, email = %s, phone = %s, birthday = %s WHERE patient_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (fname, lname, email, phone, birthday, id))
+            mysql.connection.commit()
+        return redirect("/patients.j2")
+
 
 @app.route('/prescriptions.j2', methods=['POST', 'GET'])
 def prescriptions():

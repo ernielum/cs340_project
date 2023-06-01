@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Patients</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
+</head>
+
+<body>
+    <header>
+        <h1>Pharmacy Database (Ph.D)</h1>
+    </header>
+    <nav>
+        <a href="index.j2">Home</a>
+        <a href="companies.j2">Companies</a>
+        <a href="drugs.j2">Drugs</a>
+        <a href="patients.j2">Patients</a>
+        <a href="prescriptions.j2">Prescriptions</a>
+        <a href="frequencies.j2">Frequencies</a>
+        <a href="routes.j2">Routes</a>
+        <a href="companies_drugs.j2">Companies_Drugs</a>
+    </nav>
+    <main>
+        <h2>Patients</h2>
+        <table border="1" cellpadding="5">
+            <tr>
+            {% for key in data[0].keys() %}
+            <th> {{ key }} </th>
+            {% endfor %}
+            </tr>
+
+            {% for patient in data %}
+            <tr>
+                {% for key in patient.keys() %}
+                <td>{{patient[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        <form method="POST" action="/patients/edit/{{data[0].patient_id}}" id="updatePatient">
+            <legend><strong>Update Patient</strong></legend>
+            <fieldset class="fields">
+                <input type="hidden" name="patientID" id="updatepatientID" value="{{data[0].patient_id}}">
+                <label> First Name </label> <input type="text" name="fname" value="{{data[0].fname}}">
+                <label> Last Name </label> <input type="text" name="lname" value="{{data[0].lname}}">
+                <label> Email </label> <input type="email" name="email" value="{{data[0].email}}">
+                <label> Phone </label> <input type="tel" name="phone" value="{{data[0].phone}}">
+                <label> Birthday </label> <input type="date" name="birthday" value="{{data[0].birthday}}">
+            </fieldset>
+            <input class="btn" type="submit" id="UpdateSavePatient" name="updatePatient" value="Save">
+            <input class="btn" type="button" value="Cancel" onClick="location.href='/patients.j2';">
+        </form>
+    </main>
+</body>
+</html>
