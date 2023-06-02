@@ -21,9 +21,15 @@ WHERE company_id = :company_id_selected_from_browse_companies_page;
 /* Companies_Drugs */
 
 -- get all companies_drugs for browse companies_drugs page
-SELECT Companies.name AS Company, Drugs.name AS Drug FROM Companies_Drugs
+SELECT Companies_Drugs.companies_drugs_id AS ID, Companies.name AS Company, Drugs.name AS Drug FROM Companies_Drugs
 INNER JOIN Companies ON Companies_Drugs.company_id = Companies.company_id
 INNER JOIN Drugs ON Drugs.drug_id = Companies_Drugs.drug_id;
+
+-- get specific companies_drugs relationship for update form
+SELECT Companies_Drugs.companies_drugs_id AS ID, Companies.name AS Company, Drugs.name AS Drug FROM Companies_Drugs
+INNER JOIN Companies ON Companies_Drugs.company_id = Companies.company_id
+INNER JOIN Drugs ON Drugs.drug_id = Companies_Drugs.drug_id
+WHERE companies_drugs_id = :companies_drugs_id_selected_from_browse_companies_page;
 
 -- get all drugs associated with a specific company
 SELECT Drugs.name FROM Companies_Drugs
@@ -178,6 +184,11 @@ WHERE company_id = :company_id_from_the_update_form;
 UPDATE Companies
 SET total_drugs = (SELECT COUNT(company_id) FROM Companies_Drugs WHERE Companies_Drugs.company_id = Companies.company_id);
 
+/* Companies_Drugs */
+-- update companies_drugs relationship based on update form
+UPDATE Companies_Drugs
+SET company_id = :company_id_input, drug_id = :drug_id_input
+WHERE companies_drugs_id = :companies_drugs_id_from_the_update_form;
 
 /* Patients */
 
@@ -209,8 +220,7 @@ DELETE FROM Companies WHERE company_id = :company_id_selected_from_browse_compan
 /* Companies_Drugs */
 
 -- dis-associate a company from a drug (M:M relationship deletion)
-DELETE FROM Companies_Drugs WHERE company_id = :company_id_selected_from_browse_companies_drugs_page
-AND drug_id = :drug_id_selected_from_browse_companies_drugs_page;
+DELETE FROM Companies_Drugs WHERE companies_drugs_id = :companies_drugs_id_selected_from_browse_page;
 
 /* Drugs */
 

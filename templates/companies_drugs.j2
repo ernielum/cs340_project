@@ -16,31 +16,30 @@
             if (dowhat == 'insert') {
                 document.getElementById('browse').style.display = 'none';
                 document.getElementById('insert').style.display = 'block';
+                document.getElementById('update').style.display = 'none';
                 document.getElementById('delete').style.display = 'none';
             }
             else if (dowhat == 'update') {
                 document.getElementById('browse').style.display = 'none';
                 document.getElementById('insert').style.display = 'none';
+                document.getElementById('update').style.display = 'block';
                 document.getElementById('delete').style.display = 'none';
-            }
-            else if (dowhat == 'delete') {
-                document.getElementById('browse').style.display = 'none';
-                document.getElementById('insert').style.display = 'none';
-                document.getElementById('delete').style.display = 'block';
             }
             else if (dowhat == 'all') {
                 document.getElementById('browse').style.display = 'block';
                 document.getElementById('insert').style.display = 'block';
+                document.getElementById('update').style.display = 'block';
                 document.getElementById('delete').style.display = 'block';
             }
             else { //by default display browse
                 document.getElementById('browse').style.display = 'block';
                 document.getElementById('insert').style.display = 'none';
+                document.getElementById('update').style.display = 'none';
                 document.getElementById('delete').style.display = 'none';
             }
         }
         function newCompanies_Drugs() { showform('insert'); }
-        function deleteCompanies_Drugs(id) { showform('delete'); }
+        function updateDrug(id) { showform('update'); }
         function browseCompanies_Drugs() { showform('browse'); }
     </script>
 </head>
@@ -64,34 +63,24 @@
         <section id="browse">
             <table border="1" cellpadding="5">
                 <tr>
-                    <th>Company</th>
-                    <th>Drug</th>
+                    {% for key in companies_drugs[0].keys() %}
+
+                    <th>{{ key }}</th>
+
+                    {% endfor %}
                 </tr>
+
+                {% for relationship in companies_drugs %}
                 <tr>
-                    <td>Pain Pain Go Away</td>
-                    <td>acetaminophen</td>
-                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
+                    {% for key in relationship.keys() %}
+                    <td>{{relationship[key]}}</td>
+                    {% endfor %}
+                    <td><a href="/companies_drugs/edit/{{relationship.ID}}">Edit</a></td>
+                    <td><a href="/companies_drugs/delete/{{relationship.ID}}"
+                            onClick="return confirm('Are you sure you want to delete {{relationship.ID}}?')">Delete</a>
+                    </td>
                 </tr>
-                <tr>
-                    <td>Pain Pain Go Away</td>
-                    <td>diclofenac</td>
-                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
-                </tr>
-                <tr>
-                    <td>Easy Sneezy</td>
-                    <td>fluticasone</td>
-                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
-                </tr>
-                <tr>
-                    <td>Legendary Bio</td>
-                    <td>latanoprost</td>
-                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
-                </tr>
-                <tr>
-                    <td>Meds 4 You</td>
-                    <td>enoxaparin</td>
-                    <td><a href="#" onclick="deleteCompanies_Drugs('this.companies_drugsID')">Delete</a></td>
-                </tr>
+                {% endfor %}
             </table>
             <button type="button"><a href="#" onClick="newCompanies_Drugs()">Add New Companies_Drugs</a></button>
             <p>&nbsp;</p>
@@ -103,28 +92,24 @@
                 <fieldset class="fields">
                     <label> Company </label>
                     <select name="companies_drugs_company_name" id="companies_drugs_company_name">
-                        <option>Pain Pain Go Away</option>
-                        <option>Easy Sneezy</option>
-                        <option>Legendary Bio</option>
-                        <option>Meds 4 You</option>
-                        <option>Milead</option>
+                        {% for company in companies %}
+                        <option value="{{ company['company_id'] }}">{{ company['name'] }}</option>
+                        {% endfor %}
                     </select>
                     <label> Drug </label>
                     <select name="companies_drugs_drug_name" id="companies_drugs_drug_name">
-                        <option>acetaminophen</option>
-                        <option>enoxaparin</option>
-                        <option>fluticasone</option>
-                        <option>latanoprost</option>
-                        <option>diclofenac</option>
+                        {% for drug in drugs %}
+                        <option value="{{ drug['drug_id'] }}">{{ drug['name'] }}</option>
+                        {% endfor %}
                     </select>
                 </fieldset>
-                <input class="btn" type="submit" id="addCompanies_Drugs" value="Add">
+                <input class="btn" type="submit" id="addCompanies_Drugs" name="addCompanies_Drugs" value="Add">
                 <input class="btn" type="button" value="Cancel" onClick="browseCompanies_Drugs()">
             </form>
         </section><!-- insert -->
         <p>&nbsp;</p>
 
-        <section id="delete" style="display: block">
+        {# <section id="delete" style="display: block">
             <form method="POST" id="deleteCompanies_Drugs">
                 <legend><strong>Delete Companies_Drugs</strong></legend>
                 <fieldset class="fields">
@@ -137,7 +122,7 @@
                 <input class="btn" type="submit" id="DeleteCompanies_Drugs" value="Delete">
                 <input class="btn" type="button" value="Cancel" onClick="browseCompanies_Drugs()">
             </form>
-        </section><!-- delete -->
+        </section><!-- delete --> #}
     </main>
 
 </body>

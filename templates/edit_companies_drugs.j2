@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Companies</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
+</head>
+
+<body>
+    <header>
+        <h1>Pharmacy Database (Ph.D)</h1>
+    </header>
+    <nav>
+        <a href="/index.j2">Home</a>
+        <a href="/companies.j2">Companies</a>
+        <a href="/drugs.j2">Drugs</a>
+        <a href="/patients.j2">Patients</a>
+        <a href="/prescriptions.j2">Prescriptions</a>
+        <a href="/frequencies.j2">Frequencies</a>
+        <a href="/routes.j2">Routes</a>
+        <a href="/companies_drugs.j2">Companies_Drugs</a>
+    </nav>
+    <main>
+        <table border="1" cellpadding="5">
+            <tr>
+                {% for key in data[0].keys() %}
+
+                <th>{{ key }}</th>
+
+                {% endfor %}
+            </tr>
+
+            {% for companies_drugs in data %}
+            <tr>
+                {% for key in companies_drugs.keys() %}
+                <td>{{companies_drugs[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        <form method="POST" action="/companies_drugs/edit/{{data[0].ID}}" id="updateCompanies_Drugs">
+            <legend><strong>Update Company & Drug Relationship</strong></legend>
+            <fieldset class="fields">
+                <input type="hidden" name="companies_drugs_id" id="updatecompanies_drugs_ID" value="{{data[0].ID}}">
+                <label> Company </label>
+                <select name="companies_drugs_company_name" id="companies_drugs_company_name">
+                    {% for company in companies %}
+                    <option value="{{ company['company_id'] }}">{{ company['name'] }}</option>
+                    {% endfor %}
+                </select>
+                <label> Drug </label>
+                <select name="companies_drugs_drug_name" id="companies_drugs_drug_name">
+                    {% for drug in drugs %}
+                    <option value="{{ drug['drug_id'] }}">{{ drug['name'] }}</option>
+                    {% endfor %}
+                </select>
+                <input class="btn" type="submit" id="UpdateSaveCompaniesDrugs" name="updateCompanies_Drugs"
+                    value="Save">
+                <input class="btn" type="button" value="Cancel" onClick="location.href='/companies_drugs.j2';">
+        </form>
+    </main>
+</body>
+
+</html>

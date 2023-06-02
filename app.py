@@ -255,6 +255,14 @@ def routes():
         cur.execute(query)
         routes_data = cur.fetchall()
         return render_template("/routes.j2", routes=routes_data)
+
+@app.route('/routes/delete/<int:id>')
+def delete_route(id):
+    query = "DELETE FROM Routes WHERE route_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (id,))
+    mysql.connection.commit()
+    return redirect("/routes.j2")
     
 @app.route('/frequencies.j2', methods=['POST', 'GET'])
 def frequencies():
@@ -283,9 +291,86 @@ def delete_frequency(id):
     return redirect("/frequencies.j2")
 
 
-@app.route('/companies_drugs.j2')
+@app.route('/companies_drugs.j2', methods=['POST', 'GET'])
 def companies_drugs():
-    return render_template("companies_drugs.j2")
+    if request.method == 'POST':
+        # add companies_drugs
+        if request.form.get("addCompanies_Drugs"):
+        # retrieve user form input
+            company = request.form['companies_drugs_company_name']
+            drug = request.form['companies_drugs_drug_name']
+            query = "INSERT INTO Companies_Drugs(company_id, drug_id) VALUES (%s, %s);"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (company, drug))
+            mysql.connection.commit()
+        return redirect("/companies_drugs.j2")
+    
+    if request.method == 'GET':
+        # mySQL query to show all relationships in Companies_Drugs
+        query = "SELECT Companies_Drugs.companies_drugs_id AS ID, Companies.name AS Company, Drugs.name AS Drug FROM Companies_Drugs INNER JOIN Companies ON Companies_Drugs.company_id = Companies.company_id INNER JOIN Drugs ON Drugs.drug_id = Companies_Drugs.drug_id;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        companies_drugs_data = cur.fetchall()
+        
+        # mySQL query to show all companies in dropdown
+        query = "SELECT * FROM Companies;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        companies_data = cur.fetchall()
+
+        # mySQL query to show all drugs in dropdown
+
+        query = "SELECT drug_id, name FROM Drugs ORDER BY name ASC;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        drugs_data = cur.fetchall()
+
+        return render_template("companies_drugs.j2", companies_drugs=companies_drugs_data, companies=companies_data, drugs=drugs_data)
+
+@app.route('/companies_drugs/delete/<int:id>')
+def delete_companies_drugs(id):
+    # mySQL query to delete the companies_drugs relationship with the passed id.
+    query = "DELETE FROM Companies_Drugs WHERE companies_drugs_id = %s;"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (id,))
+    mysql.connection.commit()
+    return redirect("/companies_drugs.j2")
+
+@app.route('/companies_drugs/edit/<int:id>', methods=['POST', 'GET'])
+def edit_companies_drugs(id):
+    if request.method == 'GET':
+        query = "SELECT Companies_Drugs.companies_drugs_id AS ID, Companies.name AS Company, Drugs.name AS Drug FROM Companies_Drugs INNER JOIN Companies ON Companies_Drugs.company_id = Companies.company_id INNER JOIN Drugs ON Drugs.drug_id = Companies_Drugs.drug_id WHERE companies_drugs_id = %s;"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (id,))
+        data = cur.fetchall()
+
+         # mySQL query to show all companies in dropdown
+        query = "SELECT * FROM Companies;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        companies_data = cur.fetchall()
+
+        # mySQL query to show all drugs in dropdown
+
+        query = "SELECT drug_id, name FROM Drugs ORDER BY name ASC;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        drugs_data = cur.fetchall()
+
+        return render_template("edit_companies_drugs.j2", data=data, companies=companies_data, drugs=drugs_data)
+    
+    if request.method == 'POST':
+        if request.form.get("updateCompanies_Drugs"):
+            # retrieve user form input
+            id = request.form['companies_drugs_id']
+            company = request.form['companies_drugs_company_name']
+            drug = request.form['companies_drugs_drug_name']
+            query = "UPDATE Companies_Drugs SET company_id = %s, drug_id = %s WHERE companies_drugs_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (company, drug, id))
+            mysql.connection.commit()
+        return redirect("/companies_drugs.j2")
+
 
 @app.route('/test_companies')
 def test_companies():
