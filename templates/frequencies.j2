@@ -59,52 +59,37 @@
         <section id="browse">
             <table border="1" cellpadding="5">
                 <tr>
-                    <th>ID</th>
-                    <th>Description</th>
+                    {% for key in frequencies[0].keys() %}
+                    <th>{{ key }}</th>
+                    {%  endfor %}
                 </tr>
+
+                {% for frequency in frequencies %}
                 <tr>
-                    <td>1</td>
-                    <td>Everyday</td>
-                    <td><a href="#" onclick="deleteFrequency('this.frequencyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Every other day</td>
-                    <td><a href="#" onclick="deleteFrequency('this.frequencyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Every 8 hours</td>
-                    <td><a href="#" onclick="deleteFrequency('this.frequencyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Every 12 hours</td>
-                    <td><a href="#" onclick="deleteFrequency('this.frequencyID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>As needed</td>
-                    <td><a href="#" onclick="deleteFrequency('this.frequencyID')">Delete</a></td>
-                  </tr>
+                    {% for key in frequency.keys() %}
+                    <td>{{frequency[key]}}</td>
+                    {% endfor %}
+                    <td><a href="/frequencies/delete/{{frequency.frequency_id}}">Delete</a></td>
+                </tr>
+                {% endfor %}
             </table>
             <button type ="button"><a href="#" onClick="newFrequency()">Add New Frequency</a></button>
             <p>&nbsp;</p>
         </section> <!-- browse -->
 
-        <section id="insert">
+        {# <section id="insert">
             <form method="POST" id="addFrequency">
                 <legend><strong>Add Frequency</strong></legend>
                 <fieldset class="fields">
-                    <label> Description </label> <input type="text" name="name">
+                    <label> Description </label> <input type="text" name="description">
                 </fieldset>
-                <input class="btn" type="submit" id="addFrequency" value="Add">
+                <input class="btn" type="submit" name="addFrequency" id="addFrequency" value="Add">
                 <input class="btn" type="button" value="Cancel" onClick="browseFrequencies()">
             </form>
-        </section><!-- insert -->
+        </section><!-- insert --> #}
         <p>&nbsp;</p>
-        
-        <section id="delete">
+
+        {# <section id="delete">
             <form method="POST" id="deleteFrequency">
                 <legend><strong>Delete Frequency</strong></legend>
                 <fieldset class="fields">
@@ -116,7 +101,7 @@
                 <input class="btn" type="submit" id="DeleteFrequency" value="Delete">
                 <input class="btn" type="button" value="Cancel" onClick="browseFrequencies()">
             </form>
-        </section><!-- delete -->
+        </section><!-- delete --> #}
     
     </main>
 

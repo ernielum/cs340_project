@@ -238,13 +238,50 @@ def delete_prescription(id):
     mysql.connection.commit()
     return redirect("/prescriptions.j2")
 
-@app.route('/routes.j2')
+@app.route('/routes.j2', methods=['POST', 'GET'])
 def routes():
-    return render_template("routes.j2")
+    if request.method == 'POST':
+        if request.form.get("addRoute"):
+            description = request.form['description']
+            query = "INSERT INTO Routes (description) VALUES (%s);"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (description,))
+            mysql.connection.commit()
+        return redirect("/routes.j2")
 
-@app.route('/frequencies.j2')
+    if request.method == 'GET':
+        query = "SELECT * FROM Routes;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        routes_data = cur.fetchall()
+        return render_template("/routes.j2", routes=routes_data)
+    
+@app.route('/frequencies.j2', methods=['POST', 'GET'])
 def frequencies():
-    return render_template("frequencies.j2")
+    if request.method == 'POST':
+        if request.form.get("addFrequency"):
+            description = request.form['description']
+            query = "INSERT INTO Frequencies(description) VALUES (%s);"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (description,))
+            mysql.connection.commit()
+        return redirect("/frequencies.j2")
+
+    if request.method == 'GET':
+        query = "SELECT * FROM Frequencies;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        freq_data = cur.fetchall()
+        return render_template("frequencies.j2", frequencies=freq_data)
+
+@app.route('/frequencies/delete/<int:id>')
+def delete_frequency(id):
+    query = "DELETE FROM Frequencies WHERE frequency_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (id,))
+    mysql.connection.commit()
+    return redirect("/frequencies.j2")
+
 
 @app.route('/companies_drugs.j2')
 def companies_drugs():

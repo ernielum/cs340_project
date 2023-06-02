@@ -59,44 +59,17 @@
         <section id="browse">
             <table border="1" cellpadding="5">
                 <tr>
-                    <th>ID</th>
-                    <th>Description</th>
+                    {% for key in routes[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
                 </tr>
+                {% for route in routes %}
                 <tr>
-                    <td>1</td>
-                    <td>Oral</td>
-                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Intravenous</td>
-                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Intramuscular</td>
-                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Ocular</td>
-                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>Otic</td>
-                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>6</td>
-                    <td>Nasal</td>
-                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
-                  </tr>
-                  <tr>
-                    <td>7</td>
-                    <td>Topical</td>
-                    <td><a href="#" onclick="deleteRoute('this.routeID')">Delete</a></td>
-                  </tr>
+                    {% for key in route.keys() %}
+                    <td>{{route[key]}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
             </table>
             <button type ="button"><a href="#" onClick="newRoute()">Add New Route</a></button>
             <p>&nbsp;</p>
@@ -106,9 +79,9 @@
             <form method="POST" id="addRoute">
                 <legend><strong>Add Route</strong></legend>
                 <fieldset class="fields">
-                    <label> Description </label> <input type="text" name="name">
+                    <label> Description </label> <input type="text" name="description" id="description">
                 </fieldset>
-                <input class="btn" type="submit" id="addRoute" value="Add">
+                <input class="btn" type="submit" name="addRoute" id="addRoute" value="Add">
                 <input class="btn" type="button" value="Cancel" onClick="browseRoutes()">
             </form>
         </section><!-- insert -->
