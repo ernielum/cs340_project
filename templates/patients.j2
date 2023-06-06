@@ -80,8 +80,8 @@
                     {% for key in patient.keys() %}
                     <td> {{patient[key]}} </td>
                     {% endfor %}
-                <td><a href="/patients/edit/{{patient.patient_id}}" onClick="return confirm('Double check all patient information is correct when updating!')">Edit</a></td>
-                <td><a href="/patients/delete/{{patient.patient_id}}" onClick="return confirm('Continuing will remove {{patient.fname}} {{patient.lname}} from our system. Are you sure?')">Delete</a></td>
+                <td><a href="/patients/edit/{{patient.ID}}" onClick="return confirm('Double check all patient information is correct when updating!')">Edit</a></td>
+                <td><a href="/patients/delete/{{patient.ID}}" onClick="return confirm('Continuing will remove this patient from our system. Are you sure?')">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>

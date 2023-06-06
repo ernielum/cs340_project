@@ -54,7 +54,7 @@ def companies():
     
     if request.method == 'GET':
         # mySQL query to show all companies in Companies
-        query = "SELECT * FROM Companies;"
+        query = "SELECT company_id AS ID, name AS Name, total_drugs AS 'Total Drugs' FROM Companies;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         companies_data = cur.fetchall()
@@ -107,7 +107,7 @@ def drugs():
     
     if request.method == 'GET':
         # mySQL query to show all drugs in Drugs
-        query = "SELECT * FROM Drugs;"
+        query = "SELECT drug_id AS ID, name AS Name, year_approved AS 'Year Approved' FROM Drugs;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         drugs_data = cur.fetchall()
@@ -141,7 +141,7 @@ def patients():
     
     if request.method == 'GET':
         # mySQL query to show all patients in Patients
-        query = "SELECT * FROM Patients;"
+        query = "SELECT patient_id AS ID, fname AS 'First Name', lname AS 'Last Name', email AS Email, phone AS 'Phone Number', birthday AS Birthday FROM Patients;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         patients_data = cur.fetchall()
@@ -159,7 +159,7 @@ def delete_patient(id):
 @app.route('/patients/edit/<int:id>', methods=['POST', 'GET'])
 def edit_patient(id):
     if request.method == 'GET':
-        query = "SELECT * FROM Patients WHERE patient_id = %s;"
+        query = "SELECT patient_id AS ID, fname AS 'First Name', lname AS 'Last Name', email AS Email, phone AS 'Phone Number', birthday AS Birthday FROM Patients WHERE patient_id = %s;"
         cur = mysql.connection.cursor()
         cur.execute(query, (id,))
         data = cur.fetchall()
@@ -201,7 +201,7 @@ def prescriptions():
     
     if request.method == 'GET':
         # mySQL query to show all prescriptions in Prescriptions
-        query = "SELECT Prescriptions.prescription_id, Patients.lname, Patients.fname, Drugs.name AS Drug, Prescriptions.start_date, Prescriptions.end_date, Frequencies.description AS Frequency, Routes.description AS Route, Prescriptions.description  FROM Prescriptions INNER JOIN Patients ON Prescriptions.patient_id = Patients.patient_id INNER JOIN Drugs ON Prescriptions.drug_id = Drugs.drug_id INNER JOIN Frequencies ON Prescriptions.frequency_id = Frequencies.frequency_id INNER JOIN Routes ON Prescriptions.route_id = Routes.route_id;"
+        query = "SELECT Prescriptions.prescription_id AS PID, Patients.lname AS 'Last Name', Patients.fname as 'First Name', Drugs.name AS Drug, Prescriptions.start_date AS 'Start Date', Prescriptions.end_date AS 'End Date', Frequencies.description AS Frequency, Routes.description AS Route, Prescriptions.description AS Description FROM Prescriptions INNER JOIN Patients ON Prescriptions.patient_id = Patients.patient_id INNER JOIN Drugs ON Prescriptions.drug_id = Drugs.drug_id INNER JOIN Frequencies ON Prescriptions.frequency_id = Frequencies.frequency_id INNER JOIN Routes ON Prescriptions.route_id = Routes.route_id;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         prescriptions_data = cur.fetchall()
@@ -212,6 +212,11 @@ def prescriptions():
         cur = mysql.connection.cursor()
         cur.execute(query)
         drugs_data = cur.fetchall()
+
+        query = "SELECT patient_id, fname, lname FROM Patients ORDER BY fname ASC;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        patients_data = cur.fetchall()
 
         # mySQL query to grab frequency id/description data from dropdown
 
@@ -227,7 +232,7 @@ def prescriptions():
         cur.execute(query)
         routes_data = cur.fetchall()
 
-        return render_template("prescriptions.j2", prescriptions=prescriptions_data, drugs=drugs_data, frequencies=frequencies_data, routes=routes_data)
+        return render_template("prescriptions.j2", prescriptions=prescriptions_data, drugs=drugs_data, patients=patients_data,frequencies=frequencies_data, routes=routes_data)
 
 @app.route('/prescriptions/delete/<int:id>')
 def delete_prescription(id):
@@ -250,7 +255,7 @@ def routes():
         return redirect("/routes.j2")
 
     if request.method == 'GET':
-        query = "SELECT * FROM Routes;"
+        query = "SELECT route_id AS RID, description AS Description FROM Routes;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         routes_data = cur.fetchall()
@@ -276,7 +281,7 @@ def frequencies():
         return redirect("/frequencies.j2")
 
     if request.method == 'GET':
-        query = "SELECT * FROM Frequencies;"
+        query = "SELECT frequency_id AS FID, description AS Description FROM Frequencies;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         freq_data = cur.fetchall()

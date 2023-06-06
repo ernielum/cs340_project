@@ -71,7 +71,7 @@
                     {% for key in prescription.keys() %}
                     <td>{{prescription[key]}}</td>
                     {% endfor %}
-                    <td><a href="/prescriptions/delete/{{prescription.prescription_id}}" onclick="return confirm('Are you sure you want to delete prescription ID: {{prescription.prescription_id}}?')">Delete</a></td>
+                    <td><a href="/prescriptions/delete/{{prescription.PID}}" onclick="return confirm('Are you sure you want to delete prescription ID: {{prescription.PID}}?')">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>
@@ -89,7 +89,12 @@
                             <option value="{{ drug['drug_id'] }}">{{ drug['name'] }}</option>
                             {% endfor %}
                         </select>
-                    <label> Patient ID </label> <input type="number" name="patient_id">
+                    <label> Patient ID </label> 
+                        <select name="patient_id" id="patient_id">
+                            {% for patient in patients %}
+                            <option value="{{ patient['patient_id'] }}"> {{ patient['fname']}} {{ patient['lname']}}</option>
+                            {% endfor %}
+                        </select>
                     <label> Start Date </label> <input type="date" name="start_date">
                     <label> End Date </label> <input type="date" name="end_date">
                     <label> Frequency </label> 

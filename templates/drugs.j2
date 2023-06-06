@@ -71,7 +71,7 @@
                     {% for key in drug.keys() %}
                     <td>{{drug[key]}}</td>
                     {% endfor %}
-                    <td><a href="/drugs/delete/{{drug.drug_id}}" onclick="return confirm('Are you sure you want to delete {{drug.name}}?')">Delete</a></td>
+                    <td><a href="/drugs/delete/{{drug.ID}}" onclick="return confirm('Are you sure you want to delete {{drug.Name}}?')">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>
@@ -83,8 +83,8 @@
             <form method="POST" id="addDrug">
                 <legend><strong>Add Drug</strong></legend>
                 <fieldset class="fields">
-                    <label> name </label> <input type="text" id="name" name="name">
-                    <label> year_approved </label> <input type="text" id="year_approved" name="year_approved">
+                    <label> Name </label> <input type="text" id="name" name="name">
+                    <label> Year Approved </label> <input type="text" id="year_approved" name="year_approved">
                 </fieldset>
                 <input class="btn" type="submit" name="addDrug" id="addDrug" value="Add">
                 <input class="btn" type="button" value="Cancel" onClick="browseDrugs()">

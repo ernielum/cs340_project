@@ -82,8 +82,8 @@
                     {% for key in company.keys() %}
                     <td>{{company[key]}}</td>
                     {% endfor %}
-                    <td><a href="/companies/edit/{{company.company_id}}">Edit</a></td>
-                    <td><a href="/companies/delete/{{company.company_id}}" onClick="return confirm('Are you sure you want to delete {{company.name}}?')">Delete</a></td>
+                    <td><a href="/companies/edit/{{company.ID}}">Edit</a></td>
+                    <td><a href="/companies/delete/{{company.ID}}" onClick="return confirm('Are you sure you want to delete {{company.Name}}?')">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>
