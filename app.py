@@ -53,6 +53,11 @@ def companies():
         return redirect("/companies.j2")
     
     if request.method == 'GET':
+        # update total drugs for companies
+        query = "UPDATE Companies SET total_drugs = (SELECT COUNT(company_id) FROM Companies_Drugs WHERE Companies_Drugs.company_id = Companies.company_id);"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        mysql.connection.commit()
         # mySQL query to show all companies in Companies
         query = "SELECT company_id AS ID, name AS Name, total_drugs AS 'Total Drugs' FROM Companies;"
         cur = mysql.connection.cursor()
