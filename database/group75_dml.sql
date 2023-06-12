@@ -188,7 +188,7 @@ SET total_drugs = (SELECT COUNT(company_id) FROM Companies_Drugs WHERE Companies
 -- update companies_drugs relationship based on update form
 UPDATE Companies_Drugs
 SET company_id = :company_id_input, drug_id = :drug_id_input
-WHERE companies_drugs_id = :companies_drugs_id_from_the_update_form;
+WHERE company_id = :company_id_from_the_update_form AND drug_id = :drug_id_from_the_update_form;
 
 /* Patients */
 
@@ -220,7 +220,7 @@ DELETE FROM Companies WHERE company_id = :company_id_selected_from_browse_compan
 /* Companies_Drugs */
 
 -- dis-associate a company from a drug (M:M relationship deletion)
-DELETE FROM Companies_Drugs WHERE companies_drugs_id = :companies_drugs_id_selected_from_browse_page;
+DELETE FROM Companies_Drugs WHERE company_id = :company_id_selected_from_dropdown and drug_id = :drug_id_selected_from_dropdown;
 
 /* Drugs */
 

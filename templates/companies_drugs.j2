@@ -70,14 +70,17 @@
                     {% endfor %}
                 </tr>
 
-                {% for relationship in companies_drugs %}
+                {% for relationship in companies_drugs_id %}
                 <tr>
-                    {% for key in relationship.keys() %}
+                    {# {% for key in relationship.keys() %}
                     <td>{{relationship[key]}}</td>
-                    {% endfor %}
-                    <td><a href="/companies_drugs/edit/{{relationship.ID}}">Edit</a></td>
-                    <td><a href="/companies_drugs/delete/{{relationship.ID}}"
-                            onClick="return confirm('Are you sure you want to delete ID: {{relationship.ID}}?')">Delete</a>
+                    {% endfor %} #}
+
+                    <td>{{relationship.Company}}</td>
+                    <td>{{relationship.Drug}}</td>
+                    <td><a href="/companies_drugs/edit/{{relationship.company_id}}_{{relationship.drug_id}}">Edit</a></td>
+                    <td><a href="/companies_drugs/delete/{{relationship.company_id}}_{{relationship.drug_id}}"
+                            onClick="return confirm('Are you sure you want to delete {{relationship.Company}} and {{relationship.Drug}}?')">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

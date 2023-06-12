@@ -42,10 +42,9 @@
             {% endfor %}
         </table>
 
-        <form method="POST" action="/companies_drugs/edit/{{data[0].ID}}" id="updateCompanies_Drugs">
+        <form method="POST" action="/companies_drugs/edit/{{data[0].company_id}}_{{data[0].drug_id}}" id="updateCompanies_Drugs">
             <legend><strong>Update Company & Drug Relationship</strong></legend>
             <fieldset class="fields">
-                <input type="hidden" name="companies_drugs_id" id="updatecompanies_drugs_ID" value="{{data[0].ID}}">
                 <label> Company </label>
                 <select name="companies_drugs_company_name" id="companies_drugs_company_name">
                     {% for company in companies %}

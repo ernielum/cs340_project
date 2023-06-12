@@ -30,13 +30,12 @@ CREATE OR REPLACE TABLE Drugs(
 );
 
 CREATE OR REPLACE TABLE Companies_Drugs(
-    companies_drugs_id INT AUTO_INCREMENT UNIQUE NOT NULL,
     company_id int NOT NULL,
     drug_id int NOT NULL,
     -- as long as a company is producing a drug, the company cannot be deleted
     FOREIGN KEY (company_id) REFERENCES Companies(company_id),
     FOREIGN KEY (drug_id) REFERENCES Drugs(drug_id) ON DELETE CASCADE,
-    PRIMARY KEY(companies_drugs_id)
+    PRIMARY KEY(company_id, drug_id)
 );
 
 
