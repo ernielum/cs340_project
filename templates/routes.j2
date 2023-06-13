@@ -68,7 +68,7 @@
                     {% for key in route.keys() %}
                     <td>{{route[key]}}</td>
                     {% endfor %}
-                    <td><a href="/routes/delete/{{route.route_id}}" onClick="return confirm('Are you sure you want to delete {{route.description}}?')">Delete</a></td>
+                    <td><a href="/routes/delete/{{route.RID}}" onClick="return confirm('Are you sure you want to delete {{route.Description}}?')">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>
