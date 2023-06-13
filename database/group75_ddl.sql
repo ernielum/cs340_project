@@ -19,7 +19,7 @@ CREATE OR REPLACE TABLE Companies(
     company_id int AUTO_INCREMENT UNIQUE NOT NULL,
     name varchar(255) UNIQUE NOT NULL,
     total_drugs int NOT NULL DEFAULT 0,
-    PRIMARY KEY (name)
+    PRIMARY KEY (company_id)
 );
 
 CREATE OR REPLACE TABLE Drugs(
