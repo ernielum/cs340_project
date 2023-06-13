@@ -69,8 +69,8 @@
                     {% for key in frequency.keys() %}
                     <td>{{frequency[key]}}</td>
                     {% endfor %}
-                    <td><a href="/frequencies/delete/{{frequency.frequency_id}}"
-                            onClick="return confirm('Are you sure you want to delete {{frequency.description}}?')">Delete</a>
+                    <td><a href="/frequencies/delete/{{frequency.FID}}"
+                            onClick="return confirm('Are you sure you want to delete {{frequency.Description}}?')">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
