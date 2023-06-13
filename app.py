@@ -90,7 +90,7 @@ def edit_company(id):
             # retrieve user form input
             id = request.form["companyID"]
             name = request.form["name"]
-            query = "UPDATE Companies SET name = %s WHERE company_id = %s"
+            query = "UPDATE Companies SET name = %s WHERE company_id = %s ON DUPLICATE KEY UPDATE company_id=company_id;"
             cur = mysql.connection.cursor()
             cur.execute(query, (name, id))
             mysql.connection.commit()
@@ -104,7 +104,7 @@ def drugs():
         # retrieve user form input
             name = request.form['name']
             year_approved = request.form["year_approved"]
-            query = "INSERT INTO Drugs (name, year_approved) VALUES (%s, %s);"
+            query = "INSERT INTO Drugs (name, year_approved) VALUES (%s, %s) ON DUPLICATE KEY UPDATE name=name;"
             cur = mysql.connection.cursor()
             cur.execute(query, (name, year_approved))
             mysql.connection.commit()
@@ -253,7 +253,7 @@ def routes():
     if request.method == 'POST':
         if request.form.get("addRoute"):
             description = request.form['description']
-            query = "INSERT INTO Routes (description) VALUES (%s);"
+            query = "INSERT INTO Routes (description) VALUES (%s) ON DUPLICATE KEY UPDATE description=description;"
             cur = mysql.connection.cursor()
             cur.execute(query, (description,))
             mysql.connection.commit()
@@ -279,7 +279,7 @@ def frequencies():
     if request.method == 'POST':
         if request.form.get("addFrequency"):
             description = request.form['description']
-            query = "INSERT INTO Frequencies(description) VALUES (%s);"
+            query = "INSERT INTO Frequencies(description) VALUES (%s) ON DUPLICATE KEY UPDATE description=description;"
             cur = mysql.connection.cursor()
             cur.execute(query, (description,))
             mysql.connection.commit()

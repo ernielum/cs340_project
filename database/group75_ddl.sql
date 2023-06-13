@@ -5,13 +5,13 @@ Drugs, Companies, Company_Drugs, Patients, Prescriptions, Routes, Frequencies
 
 CREATE OR REPLACE TABLE Routes(
     route_id INT AUTO_INCREMENT UNIQUE NOT NULL,
-    description varchar(255) NOT NULL,
+    description varchar(255) UNIQUE NOT NULL,
     PRIMARY KEY (route_id)
 );
 
 CREATE OR REPLACE TABLE Frequencies(
     frequency_id INT AUTO_INCREMENT UNIQUE NOT NULL,
-    description varchar(255) NOT NULL,
+    description varchar(255) UNIQUE NOT NULL,
     PRIMARY KEY (frequency_id)
 );
 
