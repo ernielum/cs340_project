@@ -90,7 +90,7 @@ def edit_company(id):
             # retrieve user form input
             id = request.form["companyID"]
             name = request.form["name"]
-            query = "UPDATE Companies SET name = %s WHERE company_id = %s ON DUPLICATE KEY UPDATE company_id=company_id;"
+            query = "UPDATE Companies SET name = %s WHERE company_id = %s;"
             cur = mysql.connection.cursor()
             cur.execute(query, (name, id))
             mysql.connection.commit()
@@ -104,7 +104,7 @@ def drugs():
         # retrieve user form input
             name = request.form['name']
             year_approved = request.form["year_approved"]
-            query = "INSERT INTO Drugs (name, year_approved) VALUES (%s, %s) ON DUPLICATE KEY UPDATE name=name;"
+            query = "INSERT INTO Drugs (name, year_approved) VALUES (%s, %s);"
             cur = mysql.connection.cursor()
             cur.execute(query, (name, year_approved))
             mysql.connection.commit()
