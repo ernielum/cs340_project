@@ -61,7 +61,7 @@ CREATE OR REPLACE TABLE Prescriptions(
     FOREIGN KEY (drug_id) REFERENCES Drugs(drug_id),
     FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
     FOREIGN KEY (frequency_id) REFERENCES Frequencies(frequency_id),
-    FOREIGN KEY (route_id) REFERENCES Routes(route_id),
+    FOREIGN KEY (route_id) REFERENCES Routes(route_id) ON DELETE SET NULL,
     PRIMARY KEY (prescription_id)
 );
 

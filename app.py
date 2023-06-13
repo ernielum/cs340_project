@@ -206,7 +206,7 @@ def prescriptions():
     
     if request.method == 'GET':
         # mySQL query to show all prescriptions in Prescriptions
-        query = "SELECT Prescriptions.prescription_id AS PID, Patients.lname AS 'Last Name', Patients.fname as 'First Name', Drugs.name AS Drug, Prescriptions.start_date AS 'Start Date', Prescriptions.end_date AS 'End Date', Frequencies.description AS Frequency, Routes.description AS Route, Prescriptions.description AS Description FROM Prescriptions INNER JOIN Patients ON Prescriptions.patient_id = Patients.patient_id INNER JOIN Drugs ON Prescriptions.drug_id = Drugs.drug_id INNER JOIN Frequencies ON Prescriptions.frequency_id = Frequencies.frequency_id INNER JOIN Routes ON Prescriptions.route_id = Routes.route_id;"
+        query = "SELECT Prescriptions.prescription_id AS PID, Patients.lname AS 'Last Name', Patients.fname as 'First Name', Drugs.name AS Drug, Prescriptions.start_date AS 'Start Date', Prescriptions.end_date AS 'End Date', Frequencies.description AS Frequency, Routes.description AS Route, Prescriptions.description AS Description FROM Prescriptions INNER JOIN Patients ON Prescriptions.patient_id = Patients.patient_id INNER JOIN Drugs ON Prescriptions.drug_id = Drugs.drug_id INNER JOIN Frequencies ON Prescriptions.frequency_id = Frequencies.frequency_id LEFT JOIN Routes ON Prescriptions.route_id = Routes.route_id;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         prescriptions_data = cur.fetchall()
