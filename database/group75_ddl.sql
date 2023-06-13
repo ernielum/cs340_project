@@ -17,9 +17,9 @@ CREATE OR REPLACE TABLE Frequencies(
 
 CREATE OR REPLACE TABLE Companies(
     company_id int AUTO_INCREMENT UNIQUE NOT NULL,
-    name varchar(255) NOT NULL,
+    name varchar(255) UNIQUE NOT NULL,
     total_drugs int NOT NULL DEFAULT 0,
-    PRIMARY KEY (company_id)
+    PRIMARY KEY (name)
 );
 
 CREATE OR REPLACE TABLE Drugs(

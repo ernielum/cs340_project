@@ -46,9 +46,9 @@ def companies():
         if request.form.get("addCompany"):
         # retrieve user form input
             name = request.form['name']
-            query = "INSERT INTO Companies(name, total_drugs) VALUES (%s, 0);"
+            query = "INSERT INTO Companies(name, total_drugs) VALUES (%s, 0) ON DUPLICATE KEY UPDATE name=%s;"
             cur = mysql.connection.cursor()
-            cur.execute(query, (name,))
+            cur.execute(query, (name,name))
             mysql.connection.commit()
         return redirect("/companies.j2")
     
